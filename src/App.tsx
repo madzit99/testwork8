@@ -3,6 +3,7 @@ import "./App.css";
 import Toolbar from "./Components/Toolbar/Toolbar";
 import Home from "./Containers/Home";
 import Sidebar from "./Components/Sidebar/Sidebar";
+import AddForm from "./Containers/AddForm";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/quotes/:category" element={<Home />} />
+              <Route path="/new-quote" element={<AddForm/>}/>
             </Routes>
           </div>
         </div>
