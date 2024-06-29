@@ -13,7 +13,7 @@ const Quote:React.FC<Props> = ({id, author, category, text, onDelete}) => {
   return (
     <div className="border border-primary p-3 mt-4 rounded">
       <p>{text}</p>
-      <h5>{author}</h5>
+      <h5>-{author}</h5>
       <p>Категория: {category}</p>
       <div className="d-flex gap-2">
         <Link to={`/quotes/${id}/edit`} className="btn btn-primary">Редактировать</Link>

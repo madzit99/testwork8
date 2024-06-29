@@ -3,7 +3,7 @@ import { Button, Form } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { QuoteType } from "../types";
 import axiosApi from "../axiosApi";
-import Preloader from "../Components/Preloader";
+import Preloader from "../Components/Preloader/Preloader";
 import { categories } from "../Constants/Constants";
 
 const EditForm: React.FC = () => {

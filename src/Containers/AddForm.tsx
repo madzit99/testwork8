@@ -4,7 +4,7 @@ import { categories } from "../Constants/Constants";
 import { Button, Form } from "react-bootstrap";
 import axiosApi from "../axiosApi";
 import { useNavigate } from "react-router-dom";
-import Preloader from "../Components/Preloader";
+import Preloader from "../Components/Preloader/Preloader";
 
 const AddForm = () => {
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ const AddForm = () => {
     } catch (e) {
       console.log(e);
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
   };
   return (

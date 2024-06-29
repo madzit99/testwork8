@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { QuotesType } from "../types";
 import axiosApi from "../axiosApi";
-import QuotesList from "../Components/QuotesList";
+import QuotesList from "../Components/Quotes/QuotesList";
 import { useParams } from "react-router-dom";
-import Preloader from "../Components/Preloader";
+import Preloader from "../Components/Preloader/Preloader";
 
 const Home = () => {
   const [quotes, setQuotes] = useState<QuotesType | null>(null);

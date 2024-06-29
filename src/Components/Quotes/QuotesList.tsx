@@ -1,4 +1,4 @@
-import { QuotesType } from "../types";
+import { QuotesType } from "../../types";
 import Quote from "./Quote";
 
 interface Props {
