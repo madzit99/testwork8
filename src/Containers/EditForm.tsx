@@ -1,21 +1,37 @@
-import { useState } from "react";
-import { QuoteType } from "../types";
-import { categories } from "../Constants/Constants";
+import { useState, useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
+import { QuoteType } from "../types";
 import axiosApi from "../axiosApi";
-import { useNavigate } from "react-router-dom";
 import Preloader from "../Components/Preloader";
+import { categories } from "../Constants/Constants";
 
-const AddForm = () => {
-  const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
-
+const EditForm: React.FC = () => {
   const [quote, setQuote] = useState<QuoteType>({
-    author: "",
+    id: "",
     category: "",
+    author: "",
     text: "",
-    id: Date.now().toString(),
   });
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchQuote = async () => {
+      try {
+        setLoading(true);
+        if (id) {
+          const response = await axiosApi.get(`quotes/${id}.json`);
+          setQuote({ ...response.data, id: id });
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    void fetchQuote();
+  }, [id]);
 
   const onChange = (
     event: React.ChangeEvent<
@@ -33,18 +49,16 @@ const AddForm = () => {
     setLoading(true);
 
     try {
-      await axiosApi.post("quotes.json", quote);
+      await axiosApi.put(`quotes/${quote.id}.json`, quote);
       navigate("/");
-    } catch (e) {
-      console.log(e);
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
   };
+
   return (
     <div className="w-50 mx-auto mt-3">
-      <h2>Добавить новую цитату</h2>
-
+      <h2>Редактировать цитату</h2>
       {loading ? (
         <Preloader />
       ) : (
@@ -56,12 +70,18 @@ const AddForm = () => {
               name="author"
               placeholder="Введите автора"
               onChange={onChange}
+              value={quote.author}
               required
-            ></Form.Control>
+            />
           </Form.Group>
           <Form.Group controlId="select" className="mt-3">
             <Form.Label>Категория:</Form.Label>
-            <Form.Select name="category" required onChange={onChange}>
+            <Form.Select
+              name="category"
+              required
+              onChange={onChange}
+              value={quote.category}
+            >
               <option>Выберите категорию</option>
               {categories.map((category) => (
                 <option key={category.id} value={category.id}>
@@ -71,17 +91,18 @@ const AddForm = () => {
             </Form.Select>
           </Form.Group>
           <Form.Group className="mt-4" controlId="textArea">
-            <Form.Label>Текст цитаты</Form.Label>
+            <Form.Label>Введите цитату</Form.Label>
             <Form.Control
               as="textarea"
               rows={4}
               name="text"
               onChange={onChange}
+              value={quote.text}
               required
             />
           </Form.Group>
           <Button type="submit" variant="primary" className="mt-3">
-            Отправить
+            Редактировать
           </Button>
         </Form>
       )}
@@ -89,4 +110,4 @@ const AddForm = () => {
   );
 };
 
-export default AddForm;
+export default EditForm;
