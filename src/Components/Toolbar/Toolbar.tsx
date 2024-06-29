@@ -8,10 +8,10 @@ const Toolbar = () => {
           Цитаты
         </NavLink>
         <div className="d-flex">
-          <NavLink className="nav-link text-white me-5" to="/posts">
+          <NavLink className="nav-link text-white me-5" to="/">
             Главная
           </NavLink>
-          <NavLink className="nav-link text-white me-5" to="/new-post">
+          <NavLink className="nav-link text-white me-5" to="/new-quote">
             Добавить цитаты
           </NavLink>
         </div>
